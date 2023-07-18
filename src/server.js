@@ -17,7 +17,11 @@ app.options('*', cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(morgan("dev"));
-app.use(jwt({ secret: JWT_SECRET, algorithms: ['HS256']}).unless({ path: ['/authenticate', '/test'] }))
+app.use(jwt({ secret: JWT_SECRET, algorithms: ['HS256']}).unless({ path: ['/authenticate', '/test', '/'] }))
+
+app.get('/', (req, res) => {
+    res.send('¡Hola, Azure App Service!');
+});
 
 app.use("/authenticate", auth);
 app.use("/token", powerBIToken);

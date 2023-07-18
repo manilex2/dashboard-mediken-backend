@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/e1a7af8f-4805-459f-8922-14762afc069c/resourceGroups/DefaultResourceGroup-EUS/providers/Microsoft.Web/sites/medikenpruebabackend",
+    "appService.deploySubpath": "."
+}

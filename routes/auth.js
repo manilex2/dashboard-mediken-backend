@@ -28,8 +28,9 @@ router.post('/', async function (req, res) {
             }
             delete login.clave;
             login.tipoUsuario = "Mediken";
+            let user = login;
             const accessToken = jwt.sign({
-                login
+                user
             }, JWT_SECRET, { expiresIn: "6h" });
             res.status(200).send([{
                 token: accessToken
@@ -66,8 +67,9 @@ router.post('/', async function (req, res) {
             }
             delete login.clave;
             login.tipoUsuario = "Beneficiario";
+            let user = login;
             const accessToken = jwt.sign({
-                login
+                user
             }, JWT_SECRET, { expiresIn: "6h" });
             res.status(200).send([{
                 token: accessToken
