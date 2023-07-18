@@ -1,0 +1,37 @@
+{
+    "name": "embedding-sample",
+    "version": "1.0.0",
+    "description": "Generate Embed Token, URL and Embed the Report.",
+    "main": "./src/server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon ./src/server.js",
+        "start": "nodemon ./src/server.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@azure/msal-node": "^1.12.0",
+        "bcrypt": "^5.1.0",
+        "body-parser": "^1.19.0",
+        "bootstrap": "^4.4.1",
+        "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
+        "express": "^4.17.1",
+        "express-jwt": "^8.4.1",
+        "guid": "0.0.12",
+        "install": "^0.13.0",
+        "jquery": "^3.5.1",
+        "jsonwebtoken": "^9.0.1",
+        "node-fetch": "^2.6.1",
+        "npm": "^9.8.0",
+        "path": "^0.12.7",
+        "powerbi-client": "^2.16.5",
+        "sequelize": "^6.32.1",
+        "tedious": "^12.1.0"
+    },
+    "devDependencies": {
+        "morgan": "^1.10.0",
+        "nodemon": "^2.0.22"
+    }
+}
