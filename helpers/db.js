@@ -3,6 +3,7 @@ const { database } = require("./keys");
 const { Sequelize, Op } = require('sequelize');
 const MedikenUserModel = require('../models/medikenUser');
 const BeneficiarioModel = require('../models/beneficiarios');
+const BrokerModel = require('../models/brokers');
 Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
     date = this._applyTimezone(date, options);
     return date.format('YYYY-MM-DD HH:mm:ss.SSS');
@@ -26,11 +27,13 @@ const sequelize = new Sequelize(database.db, database.user, database.pwd, {
 
 const MedikenUser = MedikenUserModel(sequelize, Sequelize);
 const Beneficiario = BeneficiarioModel(sequelize, Sequelize);
+const Broker = BrokerModel(sequelize, Sequelize);
 
 const Models = { 
   sequelize
   , MedikenUser
   , Beneficiario
+  , Broker
   , Op
 };
 

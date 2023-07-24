@@ -5,7 +5,7 @@ module.exports = {
 };
 
 async function getUser(data) {
-    const { MedikenUser, Beneficiario } = await connectToDatabase();
+    const { MedikenUser, Beneficiario, Broker } = await connectToDatabase();
     try {
         var user = await MedikenUser.findOne({
             where: {
@@ -21,7 +21,7 @@ async function getUser(data) {
         }
         else {
             user = await Beneficiario.findOne({
-                where: {
+               where: {
                     usuario: data.usuario,
                     clave: data.clave
                 },
@@ -31,6 +31,19 @@ async function getUser(data) {
             });
             if (user) {
                 user.dataValues.tipoUsuario = "Beneficiario"
+            } else {
+                user = await Broker.findOne({
+                    where: {
+                         usuario: data.usuario,
+                         clave: data.clave
+                     },
+                     attributes: {
+                         exclude: ['clave']
+                     }
+                 });
+                if (user) {
+                    user.dataValues.tipoUsuario = "Broker"
+                }
             }
         }
     } catch (error) {
