@@ -11,16 +11,25 @@ const auth = require("./routes/auth");
 const powerBIToken = require("./routes/powerBIToken");
 const test = require("./routes/test");
 
-app.set('trust proxy', true);
 app.use(cors());
-app.options('*', cors());
+app.set('trust proxy', true);
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 // app.use(morgan("dev"));
-app.use(jwt({ secret: JWT_SECRET, algorithms: ['HS256']}).unless({ path: ['/authenticate', '/test', '/'] }))
+app.use(jwt({ secret: JWT_SECRET, algorithms: ['HS256']}).unless({ path: ['/authenticate', '/test', '/'] }));
+
+app.use((req, res, next) => {
+    const clientIP = req.ip;
+    const allowedIPs = ['127.0.0.1', 'localhost', 'https://www.mediken.com.ec', "::1"];
+    if (allowedIPs.includes(clientIP)) {
+      next();
+    } else {
+      res.status(403).send('Acceso prohibido desde esta dirección IP.');
+    }
+  });
 
 app.get('/', (req, res) => {
-    res.send('¡Hola, Azure App Service!');
+    res.send('¡Hola, Permitida la entrada');
 });
 
 app.use("/authenticate", auth);
