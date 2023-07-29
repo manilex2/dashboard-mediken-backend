@@ -16,7 +16,7 @@ app.set('trust proxy', true);
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 // app.use(morgan("dev"));
-app.use(jwt({ secret: JWT_SECRET, algorithms: ['HS256']}).unless({ path: ['/authenticate', '/test', '/'] }));
+app.use(jwt({ secret: JWT_SECRET, algorithms: ['HS256']}).unless({ path: ['/dashboard-server/authenticate', '/dashboard-server/test', '/dashboard-server'] }));
 
 app.use((req, res, next) => {
     const clientIP = req.ip;
@@ -28,12 +28,12 @@ app.use((req, res, next) => {
     }
   });
 
-app.get('/', (req, res) => {
+app.get('/dashboard-server', (req, res) => {
     res.send('Hola, Permitida la entrada');
 });
 
-app.use("/authenticate", auth);
-app.use("/token", powerBIToken);
-app.use("/test", test);
+app.use("/dashboard-server/authenticate", auth);
+app.use("/dashboard-server/token", powerBIToken);
+app.use("/dashboard-server/test", test);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
