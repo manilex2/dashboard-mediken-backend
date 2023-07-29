@@ -19,14 +19,16 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(jwt({ secret: JWT_SECRET, algorithms: ['HS256']}).unless({ path: ['/dashboard-server/authenticate', '/dashboard-server/test', '/dashboard-server'] }));
 
 app.use((req, res, next) => {
-    const clientIP = req.ip;
-    const allowedIPs = ['127.0.0.1', 'localhost', 'https://www.mediken.com.ec', "::1"];
-    if (allowedIPs.includes(clientIP)) {
-      next();
-    } else {
-      res.status(403).send('Acceso prohibido desde esta dirección IP.');
-    }
-  });
+  const allowedOrigins = [`${process.env.ORIGIN_URL}`, 'http://localhost:4200']; // Agrega aquí la URL de tu aplicación Angular
+  const origin = req.headers.origin;
+  
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    next();
+  } else {
+    res.status(403).json({ error: 'Acceso no permitido desde esta ubicación.' });
+  }
+});
 
 app.get('/dashboard-server', (req, res) => {
     res.send('Hola, Permitida la entrada');
