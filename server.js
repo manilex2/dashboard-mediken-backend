@@ -19,10 +19,11 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(jwt({ secret: JWT_SECRET, algorithms: ['HS256']}).unless({ path: ['/dashboard-server/authenticate', '/dashboard-server/test', '/dashboard-server'] }));
 
 app.use((req, res, next) => {
-  const allowedOrigins = [`${process.env.ORIGIN_URL}`, 'http://localhost:4200']; // Agrega aquí la URL de tu aplicación Angular
-  const origin = req.headers.origin;
+  const allowedOrigins = [`${process.env.ORIGIN_URL}/dashboard/`, 'http://localhost:4200'];
+  const origin = req.headers.referer;
   
   if (allowedOrigins.includes(origin)) {
+	  console.log("Entre aqui");
     res.setHeader('Access-Control-Allow-Origin', origin);
     next();
   } else {
