@@ -6,7 +6,7 @@ const JWT_SECRET = process.env.JWT_SECRET_KEY;
 const { getToken } = require("../services/powerBIToken");
 let embedToken = require("../src/embedConfigService");
 
-router.get('/getEmbedToken', async function (req, res) {
+router.get('/', async function (req, res) {
     await getToken();
     
     let result = await embedToken.getEmbedInfo();
