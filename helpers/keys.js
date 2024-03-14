@@ -6,3 +6,44 @@ module.exports.database = {
     port: process.env.DB_PORT,
     db: process.env.DB_DATABASE
 }
+
+module.exports.init = {
+    origin_url: process.env.ORIGIN_URL,
+    port: parseInt(process.env.PORT, 10) || 5300,
+    NODE_ENV: process.env.NODE_ENV,
+}
+
+module.exports.jwt = {
+    secret: process.env.JWT_SECRET_KEY
+}
+
+module.exports.gmail = {
+    user: process.env.GMAIL_USER
+}
+
+module.exports.msal = {
+    clientId: process.env.MSAL_CLIENT_ID,
+    authorityUrl: process.env.MSAL_AUTHORITY_URL,
+    tenantId: process.env.MSAL_TENANT_ID,
+    authenticationMode: process.env.MSAL_AUTHENTICATION_MODE,
+    scopeBase: process.env.MSAL_SCOPE_BASE,
+    clientSecret: process.env.MSAL_CLIENT_SECRET
+}
+
+module.exports.powerbi = {
+    pbiUsername: process.env.PBI_USERNAME,
+    pbiPassword: process.env.PBI_PASSWORD,
+    workspaceId: process.env.PBI_WORKSPACE_ID,
+    reportId: process.env.PBI_REPORT_ID,
+    reportIdAfiLTit: process.env.PBI_REPORT_ID_AFIL_TIT,
+    apiURL: process.env.PBI_API_URL
+}
+
+module.exports.sendgrid = {
+    username: process.env.SENDGRID_USERNAME,
+    password: process.env.SENDGRID_PASSWORD,
+    server: process.env.SENDGRID_SERVER,
+    emailServer: process.env.SENDGRID_EMAILSERVER,
+    port: process.env.SENDGRID_PORT,
+
+}

@@ -1,175 +1,177 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize, type) => {
-    return sequelize.define('Beneficiario', {
+    return sequelize.define('AfiliadoTitular', {
         usuario: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: "beveIde",
+            field: "ClRgIde",
+            primaryKey: true 
+        },
+        contrato: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            field: "ClRgcnt",
+            primaryKey: true 
+        },
+        secuencial: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            field: "ClRgcnsc",
             primaryKey: true 
         },
         nombres: {
             type: DataTypes.STRING,
-            allowNull: false,
-            field: "bevenom",
+            allowNull: true,
+            field: "ClRgnom",
         },
         apellidos: {
             type: DataTypes.STRING,
-            allowNull: false,
-            field: "beveape",
+            allowNull: true,
+            field: "ClRgape",
         },
-        cobertura: {
-            type: DataTypes.NUMBER,
-            allowNull: false,
-            field: "bevecob",
-        },
-        saldoCobertura: {
-            type: DataTypes.NUMBER,
-            allowNull: false,
-            field: "bevesalcob",
-        },
-        suspendido: {
+        solicitud: {
             type: DataTypes.STRING,
-            allowNull: false,
-            field: "bevesus",
+            allowNull: true,
+            field: "ClRgcnso",
+        },
+        statusCliente: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: "ClRgSta",
+        },
+        fechaUltAct: {
+            type: DataTypes.DATE,
+            allowNull: true,
+            field: "ClRgfcUA",
         },
         nose1: {
             type: DataTypes.STRING,
-            allowNull: false,
-            field: "beveven",
+            allowNull: true,
+            field: "ClRgIdUA",
         },
-        statusExcluido: {
+        horaUltAct: {
             type: DataTypes.STRING,
-            allowNull: false,
-            field: "beveexc",
+            allowNull: true,
+            field: "ClRgHrUA",
         },
-        diagnostico: {
+        tipoCuenta: {
             type: DataTypes.STRING,
-            allowNull: false,
-            field: "bevedet",
+            allowNull: true,
+            field: "ClRgTTpCt",
         },
-        usuarioLog: {
+        nose2: {
             type: DataTypes.STRING,
-            allowNull: false,
-            field: "beveusrlog",
+            allowNull: true,
+            field: "ClRgTNum",
+        },
+        nose3: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: "ClRgTNom",
+        },
+        identificacion: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: "ClRgTIde",
         },
         fechaLog: {
             type: DataTypes.DATE,
-            allowNull: false,
-            field: "bevefeclog",
-        },
-        horaLog: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            field: "bevehralog",
-        },
-        fechaInclusion: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            field: "bevefecinc",
-        },
-        fechaNacimiento: {
-            type: DataTypes.DATE,
             allowNull: true,
-            field: "bevefecnac",
+            field: "ClRgfeclog",
         },
-        contrato: {
+        suspendido: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: "bevecnt",
+            field: "ClRgSus",
         },
-        secuencialContrato: {
+        codBanco: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: "bevecntsec",
+            field: "RgmBco",
         },
-        secuencialBeneficiario: {
+        nose4: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: "bevebensec",
+            field: "ClRgFnum",
         },
-        genero: {
+        direccion: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: "bevesex",
-        },
-        tipo: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            field: "bevetip",
-        },
-        clave: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            field: "bevecont",
+            field: "ClRgFdir",
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false,
-            field: "beveema",
+            allowNull: true,
+            field: "ClRgFema",
         },
         oficina: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: "beveoficod",
+            field: "ClRgofi",
         },
-        cedula: {
+        emailBroker: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: "bevecliid",
+            field: "ClRgBrok",
+        },
+        clave: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: "ClRgcon",
         },
         notifChangePass1: {
             type: DataTypes.BOOLEAN,
             allowNull: true,
-            field: "bevenotifchngpass1",
+            field: "ClRgnotifchngpass1",
         },
         notifChangePass2: {
             type: DataTypes.BOOLEAN,
             allowNull: true,
-            field: "bevenotifchngpass2",
+            field: "ClRgnotifchngpass2",
         },
         notifChangePass3: {
             type: DataTypes.BOOLEAN,
             allowNull: true,
-            field: "bevenotifchngpass3",
+            field: "ClRgnotifchngpass3",
         },
         notifChangePassDate1: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: "bevenotifchngpassdate1",
+            field: "ClRgnotifchngpassdate1",
         },
         notifChangePassDate2: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: "bevenotifchngpassdate2",
+            field: "ClRgnotifchngpassdate2",
         },
         notifChangePassDate3: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: "bevenotifchngpassdate3",
+            field: "ClRgnotifchngpassdate3",
         },
         img: {
             type: DataTypes.BLOB,
             allowNull: true,
-            field: "beveimg",
+            field: "ClRgimg",
         },
         tokenReset: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: "bevetokenresetpass",
+            field: "ClRgtokenresetpass",
         },
         tokenResetDate: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: "bevetokenresetpassdate",
+            field: "ClRgtokenresetpassdate",
         },
         firstLogin: {
             type: DataTypes.BOOLEAN,
             allowNull: true,
-            field: "bevefirstlogin",
+            field: "ClRgfirstlogin",
         },
     }, {
-        tableName: "Beneficiarios",
+        tableName: "RgmClie",
         collate: "Modern_Spanish_CI_AS",
         schema: "dbo",
         timestamps: false

@@ -8,8 +8,14 @@ async function getToken() {
     configCheckResult = utils.validateConfig();
     
     if (configCheckResult) {
-        return res.status(400).send({
-            "error": configCheckResult
-        });
+        return{
+            status: 400,
+            error: configCheckResult
+        };
     }
+
+    return{
+        status: 200,
+        mensaje: "Token enviado."
+    };
 }

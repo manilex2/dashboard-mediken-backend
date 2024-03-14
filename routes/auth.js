@@ -1,24 +1,48 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const JWT_SECRET = process.env.JWT_SECRET_KEY;
+const jwtWebToken = require("jsonwebtoken");
+const { jwt } = require("../helpers/keys");
 
-const { getUser } = require("../services/auth");
+const { getUser, resetPassword, changePasswordReset } = require("../services/auth");
 
 router.post('/', async function (req, res) {
     try {
         var login = req.body;
         let user = await getUser(login);
-        const accessToken = jwt.sign({
+        const accessToken = jwtWebToken.sign({
             user
-        }, JWT_SECRET, { expiresIn: "6h" });
-        res.status(200).send([{
+        }, jwt.secret, { expiresIn: "6h" });
+        res.status(201).send([{
             token: accessToken
         }]);
     } catch (error) {
         res.status(403).json({
             message: 'Usuario no autorizado. Verifique usuario y contraseña'
+        });
+    }
+});
+
+router.post('/reset-password', async function (req, res) {
+    try {
+        var user = req.body;
+        console.log("entre")
+        const resetPass = await resetPassword(user);
+        res.status(201).send(resetPass);
+    } catch (error) {
+        res.status(403).json({
+            message: 'Error al resetear contraseña: ' + error
+        });
+    }
+});
+
+router.put('/change-password-reset', async function (req, res) {
+    try {
+        var user = req.body;
+        const changePass = await changePasswordReset(user);
+        res.status(200).send(changePass);
+    } catch (error) {
+        res.status(403).json({
+            message: 'Error al cambiar contraseña: ' + error
         });
     }
 });

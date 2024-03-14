@@ -9,18 +9,21 @@ const utils = require(__dirname + "/utils.js");
 const PowerBiReportDetails = require(__dirname + "/../models/embedReportConfig.js");
 const EmbedConfig = require(__dirname + "/../models/embedConfig.js");
 const fetch = require('node-fetch');
+const { powerbi } = require("../helpers/keys")
 
 /**
  * Generate embed token and embed urls for reports
  * @return Details like Embed URL, Access token and Expiry
  */
-async function getEmbedInfo() {
+async function getEmbedInfo(tipoUsuario) {
 
     // Get the Report Embed details
     try {
 
         // Get report details and embed token
-        const embedParams = await getEmbedParamsForSingleReport(config.workspaceId, config.reportId);
+        const embedParams = await getEmbedParamsForSingleReport(config.workspaceId, tipoUsuario == 'AfiliadoTitular'
+        ? powerbi.reportIdAfiLTit
+        : powerbi.reportId);
 
         return {
             'accessToken': embedParams.embedToken.token,
@@ -33,7 +36,7 @@ async function getEmbedInfo() {
         return {
             'status': err.status,
             //'status': 400,
-            'error': `Error while retrieving report embed details\r\n${err.statusText}\r\nRequestId: \n${err.headers.get('requestid')}`
+            'error': `Hubo un error al traer los detalles embedidos de los reportes: ${err}`
             // 'error': `${err}`
         }
     }

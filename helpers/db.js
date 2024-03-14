@@ -4,6 +4,8 @@ const { Sequelize, Op } = require('sequelize');
 const MedikenUserModel = require('../models/medikenUser');
 const BeneficiarioModel = require('../models/beneficiarios');
 const BrokerModel = require('../models/brokers');
+const AfiliadoTitularModel = require('../models/afiliadoTitular');
+const SolicitudBeneficiarioModel = require('../models/solicitudBeneficiario');
 Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
     date = this._applyTimezone(date, options);
     return date.format('YYYY-MM-DD HH:mm:ss.SSS');
@@ -28,12 +30,16 @@ const sequelize = new Sequelize(database.db, database.user, database.pwd, {
 const MedikenUser = MedikenUserModel(sequelize, Sequelize);
 const Beneficiario = BeneficiarioModel(sequelize, Sequelize);
 const Broker = BrokerModel(sequelize, Sequelize);
+const AfiliadoTitular = AfiliadoTitularModel(sequelize, Sequelize);
+const SolicitudBeneficiario = SolicitudBeneficiarioModel(sequelize, Sequelize);
 
 const Models = { 
   sequelize
   , MedikenUser
   , Beneficiario
   , Broker
+  , AfiliadoTitular
+  , SolicitudBeneficiario
   , Op
 };
 
