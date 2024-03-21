@@ -6,6 +6,8 @@ const BeneficiarioModel = require('../models/beneficiarios');
 const BrokerModel = require('../models/brokers');
 const AfiliadoTitularModel = require('../models/afiliadoTitular');
 const SolicitudBeneficiarioModel = require('../models/solicitudBeneficiario');
+const SolicitudModel = require('../models/solicitud');
+
 Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
     date = this._applyTimezone(date, options);
     return date.format('YYYY-MM-DD HH:mm:ss.SSS');
@@ -32,6 +34,7 @@ const Beneficiario = BeneficiarioModel(sequelize, Sequelize);
 const Broker = BrokerModel(sequelize, Sequelize);
 const AfiliadoTitular = AfiliadoTitularModel(sequelize, Sequelize);
 const SolicitudBeneficiario = SolicitudBeneficiarioModel(sequelize, Sequelize);
+const Solicitud = SolicitudModel(sequelize, Sequelize);
 
 const Models = { 
   sequelize
@@ -40,6 +43,7 @@ const Models = {
   , Broker
   , AfiliadoTitular
   , SolicitudBeneficiario
+  , Solicitud
   , Op
 };
 

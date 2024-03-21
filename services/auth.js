@@ -1,6 +1,6 @@
 const connectToDatabase = require("../helpers/db");
 const { DateTime } = require("luxon");
-const { init, sendgrid } = require("../helpers/keys");
+const { init, smtp2go } = require("../helpers/keys");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto-js");
 const nodemailer = require("nodemailer");
@@ -259,11 +259,11 @@ async function resetPassword(data) {
       }
       
       const config = {
-        host: sendgrid.server,
-        port: sendgrid.port,
+        host: smtp2go.server,
+        port: smtp2go.port,
         auth: {
-          user: sendgrid.username,
-          pass: sendgrid.password
+          user: smtp2go.username,
+          pass: smtp2go.password
         }
       };
       const transporter = nodemailer.createTransport(config);
@@ -282,12 +282,13 @@ async function resetPassword(data) {
       /* user = {
         datavalues: {
           email: 'manilex2@gmail.com',
-          usuario: '00001'
+          usuario: '00001',
+          token: ''
         }
       }; */
 
       const message = {
-        from: `"NOREPLY MEDIKEN" <${sendgrid.emailServer}>`,
+        from: `"NOREPLY MEDIKEN" <${smtp2go.emailServer}>`,
         to: user.dataValues.email? user.dataValues.email.trim() : "",
         subject: 'SOLICITUD DE RESETEO DE CONTRASEÑA',
         template: 'index',

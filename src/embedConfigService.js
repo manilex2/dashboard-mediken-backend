@@ -21,7 +21,7 @@ async function getEmbedInfo(tipoUsuario) {
     try {
 
         // Get report details and embed token
-        const embedParams = await getEmbedParamsForSingleReport(config.workspaceId, tipoUsuario == 'AfiliadoTitular'
+        const embedParams = await getEmbedParamsForSingleReport(config.workspaceId, tipoUsuario == 'AfiliadoTitular' || tipoUsuario == 'Beneficiario'
         ? powerbi.reportIdAfiLTit
         : powerbi.reportId);
 
@@ -65,7 +65,6 @@ async function getEmbedParamsForSingleReport(workspaceId, reportId, additionalDa
 
     // Convert result in json to retrieve values
     const resultJson = await result.json();
-
     // Add report data for embedding
     const reportDetails = new PowerBiReportDetails(resultJson.id, resultJson.name, resultJson.embedUrl);
     const reportEmbedConfig = new EmbedConfig();
@@ -186,7 +185,8 @@ async function getEmbedTokenForSingleReportSingleWorkspace(reportId, datasetIds,
 
     if (!result.ok)
         throw result;
-    return result.json();
+
+    return await result.json();
 }
 
 /**

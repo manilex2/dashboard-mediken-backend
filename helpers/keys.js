@@ -39,11 +39,11 @@ module.exports.powerbi = {
     apiURL: process.env.PBI_API_URL
 }
 
-module.exports.sendgrid = {
-    username: process.env.SENDGRID_USERNAME,
-    password: process.env.SENDGRID_PASSWORD,
-    server: process.env.SENDGRID_SERVER,
-    emailServer: process.env.SENDGRID_EMAILSERVER,
-    port: process.env.SENDGRID_PORT,
+module.exports.smtp2go = {
+    username: process.env.SMTP2GO_USERNAME,
+    password: process.env.SMTP2GO_PASSWORD,
+    server: process.env.SMTP2GO_SERVER,
+    emailServer: process.env.SMTP2GO_EMAILSERVER,
+    port: process.env.SMTP2GO_PORT,
 
 }

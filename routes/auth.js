@@ -25,7 +25,6 @@ router.post('/', async function (req, res) {
 router.post('/reset-password', async function (req, res) {
     try {
         var user = req.body;
-        console.log("entre")
         const resetPass = await resetPassword(user);
         res.status(201).send(resetPass);
     } catch (error) {

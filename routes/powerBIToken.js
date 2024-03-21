@@ -1,3 +1,4 @@
+require("core-js/stable/atob");
 const express = require('express');
 const router = express.Router();
 const { getToken } = require("../services/powerBIToken");

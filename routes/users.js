@@ -44,13 +44,12 @@ router.put('/first-login/:usuario', async function (req, res) {
 
 router.put('/password-notification/:usuario', async function (req, res) {
     try {
-        console.log("Entre aqui");
         const id = req.params.usuario;
         const userResult = await updatePassNotif(id);
         res.status(200).send(userResult);
     } catch (error) {
         res.status(403).json({
-            message: 'Error al actualizar el primer login' + error
+            message: 'Error al actualizar la notificación de contraseña' + error
         });
     }
 });
@@ -82,8 +81,8 @@ router.get('/img/:usuario', async function (req, res) {
         const img = await getProfileImg(id);
         res.status(200).send(img);
     } catch (error) {
-        res.status(403).json({
-            message: 'Error al agregar la imágen: ' + error
+        res.status(204).json({
+            message: 'No se puede obtener la imágen: ' + error
         });
     }
 });
