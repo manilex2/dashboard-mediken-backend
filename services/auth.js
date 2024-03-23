@@ -291,10 +291,10 @@ async function resetPassword(data) {
         from: `"NOREPLY MEDIKEN" <${smtp2go.emailServer}>`,
         to: user.dataValues.email? user.dataValues.email.trim() : "",
         subject: 'SOLICITUD DE RESETEO DE CONTRASEÑA',
-        template: 'index',
+        template: user.dataValues.email.includes('@gmail.com') ? 'index' : 'index-plain',
         context: {
           email: user.dataValues.email? user.dataValues.email.trim() : "",
-          urlPwd: init.origin_url,
+          urlPwd: `${init.origin_url}/dashboard`,
           token: user.dataValues.tokenReset? user.dataValues.tokenReset.trim() : "",
           usuario: user.dataValues.usuario? user.dataValues.usuario.trim() : "",
         },
