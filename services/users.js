@@ -589,7 +589,7 @@ async function getProfileImg(id) {
     const { MedikenUser, Beneficiario, Broker, AfiliadoTitular, Op } = await connectToDatabase();
     let user;
     try {
-      user = MedikenUser.findOne({
+      user = await MedikenUser.findOne({
         where: {
           [Op.or]: [{ usuario: id }, { codigoUsuario: id }],
         },
@@ -601,7 +601,7 @@ async function getProfileImg(id) {
           img: imgBase64,
         };
       } else {
-        user = Broker.findOne({
+        user = await Broker.findOne({
           where: {
             [Op.or]: [{ usuario: id }, { codigoBrokerComp: id }],
           },
@@ -613,7 +613,7 @@ async function getProfileImg(id) {
             img: imgBase64,
           };
         } else {
-          user = AfiliadoTitular.findOne({
+          user = await AfiliadoTitular.findOne({
             where: {
               usuario: id,
             },
@@ -625,7 +625,7 @@ async function getProfileImg(id) {
               img: imgBase64,
             };
           } else {
-            user = Beneficiario.findOne({
+            user = await Beneficiario.findOne({
               where: {
                 usuario: id,
               },
@@ -708,7 +708,7 @@ async function getContratos(data) {
               where: {
                 secuencialSolicitud: element.dataValues.secuencialContrato,
                 secuencialBeneficiario: element.dataValues.secuencialBeneficiario,
-                apellidos: element.dataValues.apellidos
+                apellidos: element.dataValues.apellidos.trim()
               },
               attributes: [
                 ['DsSocod', 'solicitud']
@@ -773,7 +773,7 @@ async function getContratos(data) {
               where: {
                 secuencialSolicitud: beneficiario.dataValues.secuencialContrato,
                 secuencialBeneficiario: beneficiario.dataValues.secuencialBeneficiario,
-                apellidos: beneficiario.dataValues.apellidos
+                apellidos: beneficiario.dataValues.apellidos.trim()
               },
               attributes: [
                 ['DsSocod', 'solicitud']
@@ -811,6 +811,7 @@ async function getContratos(data) {
       }
     }
   } catch (error) {
+    console.log(error);
     throw new Error(
       `No se pudo encontrar el contrato para ese usuario, por favor verifique: ${error}`
     );

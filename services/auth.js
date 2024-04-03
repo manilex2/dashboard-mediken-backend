@@ -571,7 +571,6 @@ async function changePasswordReset(data) {
     }
 }
 
-
 async function comparePasswords(
   plainTextPassword,
   hashedPassword,
