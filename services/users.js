@@ -725,8 +725,8 @@ async function getContratos(data) {
               ]
             });
             benef[i].dataValues.fechaRenovacion = {
-              mes: DateTime.fromJSDate(sol.dataValues.fechaRenovacion).month,
-              anio: DateTime.fromJSDate(sol.dataValues.fechaRenovacion).year,
+              mes: DateTime.fromJSDate(sol.dataValues.fechaRenovacion).setZone('UTC').month <= 9? `0${DateTime.fromJSDate(sol.dataValues.fechaRenovacion).setZone('UTC').month}` : DateTime.fromJSDate(sol.dataValues.fechaRenovacion).setZone('UTC').month,
+              anio: DateTime.fromJSDate(sol.dataValues.fechaRenovacion).setZone('UTC').year,
             };
           }
           user.dataValues.contratos.push({
@@ -790,8 +790,8 @@ async function getContratos(data) {
               ]
             });
             beneficiarios[i].dataValues.fechaRenovacion = {
-              mes: DateTime.fromJSDate(sol.dataValues.fechaRenovacion).month,
-              anio: DateTime.fromJSDate(sol.dataValues.fechaRenovacion).year,
+              mes: DateTime.fromJSDate(sol.dataValues.fechaRenovacion).setZone('UTC').month <= 9? `0${DateTime.fromJSDate(sol.dataValues.fechaRenovacion).setZone('UTC').month}` : DateTime.fromJSDate(sol.dataValues.fechaRenovacion).setZone('UTC').month,
+              anio: DateTime.fromJSDate(sol.dataValues.fechaRenovacion).setZone('UTC').year,
             };
             contratos.push({
                 contrato: beneficiario.dataValues.contrato,
