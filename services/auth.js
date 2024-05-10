@@ -13,7 +13,7 @@ module.exports = {
 };
 
 async function getUser(data) {
-    const { MedikenUser, Beneficiario, Broker, AfiliadoTitular, Op } = await connectToDatabase();
+    const { MedikenUser, Beneficiario, Broker, AfiliadoTitular, MenuOptions, Op } = await connectToDatabase();
     try {
         var user = await MedikenUser.findOne({
             where: {
@@ -42,6 +42,15 @@ async function getUser(data) {
                   ? user.dataValues.email.trim()
                   : null;
                 user.dataValues.tipoUsuario = 'Mediken';
+                var menu = await MenuOptions.findAll({
+                  where: {
+                      [Op.or]: [
+                          { tipo: "MEDIKEN" },
+                          { tipo: "TODOS" }
+                      ]
+                  }
+                });
+                user.dataValues.menu = menu;
                 return user;
             } else {
                 throw new Error(
@@ -77,6 +86,15 @@ async function getUser(data) {
                       ? user.dataValues.email.trim()
                       : null;
                     user.dataValues.tipoUsuario = 'Broker';
+                    var menu = await MenuOptions.findAll({
+                      where: {
+                          [Op.or]: [
+                              { tipo: "BROKERS" },
+                              { tipo: "TODOS" }
+                          ]
+                      }
+                    });
+                    user.dataValues.menu = menu;
                     return user;
                 } else {
                     throw new Error(
@@ -105,6 +123,15 @@ async function getUser(data) {
                         user.dataValues.email = user.dataValues.email
                             ? user.dataValues.email.trim()
                             : null;
+                        var menu = await MenuOptions.findAll({
+                          where: {
+                              [Op.or]: [
+                                  { tipo: "AFILIADOS" },
+                                  { tipo: "TODOS" }
+                              ]
+                          }
+                        });
+                        user.dataValues.menu = menu;
                         return user;
                     } else {
                         throw new Error(
@@ -133,6 +160,15 @@ async function getUser(data) {
                             user.dataValues.email = user.dataValues.email
                             ? user.dataValues.email.trim()
                             : null;
+                            var menu = await MenuOptions.findAll({
+                              where: {
+                                  [Op.or]: [
+                                      { tipo: "BENEFICIARIOS" },
+                                      { tipo: "TODOS" }
+                                  ]
+                              }
+                            });
+                            user.dataValues.menu = menu;
                             return user;
                         } else {
                             throw new Error(
