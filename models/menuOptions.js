@@ -5,36 +5,41 @@ module.exports = (sequelize, type) => {
         id: {
             type: DataTypes.NUMBER,
             allowNull: false,
-            field: "opcionesMenuGSAid",
+            field: "opcionesMenuid",
             primaryKey: true 
         },
         nombreMostrar: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: "opcionesMenuGSADes",
+            field: "opcionesMenuDes",
         },
         posicion: {
             type: DataTypes.NUMBER,
             allowNull: false,
-            field: "opcionesMenuGSAPos",
+            field: "opcionesMenuPos",
         },
         tipo: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: "opcionesMenuGSAMod",
+            field: "opcionesMenuMod",
         },
         estado: {
             type: DataTypes.NUMBER,
             allowNull: false,
-            field: "opcionesMenuGSAEst",
+            field: "opcionesMenuEst",
         },
         url: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: "opcionesMenuGSAUrl",
+            field: "opcionesMenuUrl",
+        },
+        icono: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: "opcionesMenuUrlIco",
         },
     }, {
-        tableName: "opcionesMenuGSA",
+        tableName: "OpcionesMenu",
         collate: "Modern_Spanish_CI_AS",
         schema: "dbo",
         timestamps: false
