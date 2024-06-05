@@ -20,7 +20,7 @@ async function getUser(data) {
                 [Op.or]: [
                     { usuario: data.usuario },
                     { codigoUsuario: data.usuario }
-                ]
+                ],
             }
         });
         if (user) {
@@ -47,6 +47,9 @@ async function getUser(data) {
                       [Op.or]: [
                           { tipo: "MEDIKEN" },
                           { tipo: "TODOS" }
+                      ],
+                      [Op.and]: [
+                        { estado: 1 }
                       ]
                   }
                 });
@@ -91,6 +94,9 @@ async function getUser(data) {
                           [Op.or]: [
                               { tipo: "BROKERS" },
                               { tipo: "TODOS" }
+                          ],
+                          [Op.and]: [
+                            { estado: 1 }
                           ]
                       }
                     });
@@ -128,6 +134,9 @@ async function getUser(data) {
                               [Op.or]: [
                                   { tipo: "AFILIADOS" },
                                   { tipo: "TODOS" }
+                              ],
+                              [Op.and]: [
+                                { estado: 1 }
                               ]
                           }
                         });
@@ -165,6 +174,9 @@ async function getUser(data) {
                                   [Op.or]: [
                                       { tipo: "BENEFICIARIOS" },
                                       { tipo: "TODOS" }
+                                  ],
+                                  [Op.and]: [
+                                    { estado: 1 }
                                   ]
                               }
                             });
