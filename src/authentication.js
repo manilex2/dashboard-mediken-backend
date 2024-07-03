@@ -5,26 +5,26 @@
 
 const getAccessToken = async function () {
     // Create a config variable that store credentials from keys.js
-    const config = require("../helpers/keys");
+    const { msal, powerbi } = require("../helpers/keys");
 
     // Use MSAL.js for authentication
-    const msal = require("@azure/msal-node");
+    const msalAzure = require("@azure/msal-node");
 
     const msalConfig = {
         auth: {
-            clientId: config.msal.clientId,
-            authority: `${config.msal.authorityUrl}${config.msal.tenantId}`,
+            clientId: msal.clientId,
+            authority: `${msal.authorityUrl}${msal.tenantId}`,
         }
     };
 
     // Check for the MasterUser Authentication
-    if (config.authenticationMode.toLowerCase() === "masteruser") {
-        const clientApplication = new msal.PublicClientApplication(msalConfig);
+    if (authenticationMode.toLowerCase() === "masteruser") {
+        const clientApplication = new msalAzure.PublicClientApplication(msalConfig);
 
         const usernamePasswordRequest = {
-            scopes: [config.powerbi.scopeBase],
-            username: config.powerbi.pbiUsername,
-            password: config.powerbi.pbiPassword
+            scopes: [powerbi.scopeBase],
+            username: powerbi.pbiUsername,
+            password: powerbi.pbiPassword
         };
 
         return clientApplication.acquireTokenByUsernamePassword(usernamePasswordRequest);
@@ -32,12 +32,12 @@ const getAccessToken = async function () {
     };
 
     // Service Principal auth is the recommended by Microsoft to achieve App Owns Data Power BI embedding
-    if (config.authenticationMode.toLowerCase() === "serviceprincipal") {
-        msalConfig.auth.clientSecret =  config.msal.clientSecret
-        const clientApplication = new msal.ConfidentialClientApplication(msalConfig);
+    if (authenticationMode.toLowerCase() === "serviceprincipal") {
+        msalauth.clientSecret =  msal.clientSecret
+        const clientApplication = new msalAzure.ConfidentialClientApplication(msalConfig);
 
         const clientCredentialRequest = {
-            scopes: [config.powerbi.scopeBase],
+            scopes: [powerbi.scopeBase],
         };
 
         return clientApplication.acquireTokenByClientCredential(clientCredentialRequest);

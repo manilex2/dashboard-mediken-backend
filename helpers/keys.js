@@ -45,5 +45,4 @@ module.exports.smtp2go = {
     server: process.env.SMTP2GO_SERVER,
     emailServer: process.env.SMTP2GO_EMAILSERVER,
     port: process.env.SMTP2GO_PORT,
-
 }

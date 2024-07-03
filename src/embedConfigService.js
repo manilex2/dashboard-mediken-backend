@@ -4,10 +4,10 @@
 // ----------------------------------------------------------------------------
 
 const auth = require(__dirname + "/authentication.js");
-const config = require("../helpers/keys.js");
+const { msal, powerbi } = require("../helpers/keys.js");
 const utils = require(__dirname + "/utils.js");
-const PowerBiReportDetails = require(__dirname + "/../models/embedReportConfig.js");
-const EmbedConfig = require(__dirname + "/../models/embedConfig.js");
+const PowerBiReportDetails = require(__dirname + "/../models/embedReportjs");
+const EmbedConfig = require(__dirname + "/../models/embedjs");
 const fetch = require('node-fetch');
 
 /**
@@ -20,9 +20,9 @@ async function getEmbedInfo(tipoUsuario) {
     try {
 
         // Get report details and embed token
-        const embedParams = await getEmbedParamsForSingleReport(config.powerbi.workspaceId, tipoUsuario == 'AfiliadoTitular' || tipoUsuario == 'Beneficiario'
-        ? config.powerbi.reportIdAfiLTit
-        : config.powerbi.reportId);
+        const embedParams = await getEmbedParamsForSingleReport(powerbi.workspaceId, tipoUsuario == 'AfiliadoTitular' || tipoUsuario == 'Beneficiario'
+        ? powerbi.reportIdAfiLTit
+        : powerbi.reportId);
 
         return {
             'accessToken': embedParams.embedToken.token,
@@ -69,7 +69,7 @@ async function getEmbedParamsForSingleReport(workspaceId, reportId, additionalDa
     const reportEmbedConfig = new EmbedConfig();
 
     // Create mapping for report and Embed URL
-    reportEmbedConfig.reportsDetail = [reportDetails];
+    reportEmbedreportsDetail = [reportDetails];
 
     // Create list of datasets
     let datasetIds = [resultJson.datasetId];
@@ -80,7 +80,7 @@ async function getEmbedParamsForSingleReport(workspaceId, reportId, additionalDa
     }
 
     // Get Embed token multiple resources
-    reportEmbedConfig.embedToken = await getEmbedTokenForSingleReportSingleWorkspace(reportId, datasetIds, workspaceId);
+    reportEmbedembedToken = await getEmbedTokenForSingleReportSingleWorkspace(reportId, datasetIds, workspaceId);
     return reportEmbedConfig;
 }
 
@@ -97,7 +97,7 @@ async function getEmbedParamsForMultipleReports(workspaceId, reportIds, addition
     const reportEmbedConfig = new EmbedConfig();
 
     // Create array of embedReports for mapping
-    reportEmbedConfig.reportsDetail = [];
+    reportEmbedreportsDetail = [];
 
     // Create Array of datasets
     let datasetIds = [];
@@ -124,7 +124,7 @@ async function getEmbedParamsForMultipleReports(workspaceId, reportIds, addition
         const reportDetails = new PowerBiReportDetails(resultJson.id, resultJson.name, resultJson.embedUrl);
 
         // Create mapping for reports and Embed URLs
-        reportEmbedConfig.reportsDetail.push(reportDetails);
+        reportEmbedreportsDetail.push(reportDetails);
 
         // Push datasetId of the report into datasetIds array
         datasetIds.push(resultJson.datasetId);
@@ -136,7 +136,7 @@ async function getEmbedParamsForMultipleReports(workspaceId, reportIds, addition
     }
 
     // Get Embed token multiple resources
-    reportEmbedConfig.embedToken = await getEmbedTokenForMultipleReportsSingleWorkspace(reportIds, datasetIds, workspaceId);
+    reportEmbedembedToken = await getEmbedTokenForMultipleReportsSingleWorkspace(reportIds, datasetIds, workspaceId);
     return reportEmbedConfig;
 }
 
