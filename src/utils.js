@@ -3,7 +3,7 @@
 // Licensed under the MIT license.
 // ----------------------------------------------------------------------------
 
-let config = require(__dirname + "/../config/config.json");
+const config = require("../helpers/keys");
 
 function getAuthHeader(accessToken) {
 
@@ -13,65 +13,65 @@ function getAuthHeader(accessToken) {
 
 function validateConfig() {
 
-    // Validation function to check whether the Configurations are available in the config.json file or not
+    // Validation function to check whether the Configurations are available in the keys.js file or not
 
     let guid = require("guid");
 
-    if (!config.authenticationMode) {
-        return "AuthenticationMode is empty. Please choose MasterUser or ServicePrincipal in config.json.";
+    if (!config.msal.authenticationMode) {
+        return "AuthenticationMode is empty. Please choose MasterUser or ServicePrincipal in keys.js.";
     }
 
-    if (config.authenticationMode.toLowerCase() !== "masteruser" && config.authenticationMode.toLowerCase() !== "serviceprincipal") {
-        return "AuthenticationMode is wrong. Please choose MasterUser or ServicePrincipal in config.json";
+    if (config.msal.authenticationMode.toLowerCase() !== "masteruser" && config.msal.authenticationMode.toLowerCase() !== "serviceprincipal") {
+        return "AuthenticationMode is wrong. Please choose MasterUser or ServicePrincipal in keys.js";
     }
 
-    if (!config.clientId) {
-        return "ClientId is empty. Please register your application as Native app in https://dev.powerbi.com/apps and fill Client Id in config.json.";
+    if (!config.msal.clientId) {
+        return "ClientId is empty. Please register your application as Native app in https://dev.powerbi.com/apps and fill Client Id in keys.js.";
     }
 
-    if (!guid.isGuid(config.clientId)) {
-        return "ClientId must be a Guid object. Please register your application as Native app in https://dev.powerbi.com/apps and fill Client Id in config.json.";
+    if (!guid.isGuid(config.msal.clientId)) {
+        return "ClientId must be a Guid object. Please register your application as Native app in https://dev.powerbi.com/apps and fill Client Id in keys.js.";
     }
 
-    if (!config.reportId) {
-        return "ReportId is empty. Please select a report you own and fill its Id in config.json.";
+    if (!config.powerbi.reportId) {
+        return "ReportId is empty. Please select a report you own and fill its Id in keys.js.";
     }
 
-    if (!guid.isGuid(config.reportId)) {
-        return "ReportId must be a Guid object. Please select a report you own and fill its Id in config.json.";
+    if (!guid.isGuid(config.powerbi.reportId)) {
+        return "ReportId must be a Guid object. Please select a report you own and fill its Id in keys.js.";
     }
 
-    if (!config.workspaceId) {
-        return "WorkspaceId is empty. Please select a group you own and fill its Id in config.json.";
+    if (!config.powerbi.workspaceId) {
+        return "WorkspaceId is empty. Please select a group you own and fill its Id in keys.js.";
     }
 
-    if (!guid.isGuid(config.workspaceId)) {
-        return "WorkspaceId must be a Guid object. Please select a workspace you own and fill its Id in config.json.";
+    if (!guid.isGuid(config.powerbi.workspaceId)) {
+        return "WorkspaceId must be a Guid object. Please select a workspace you own and fill its Id in keys.js.";
     }
 
-    if (!config.authorityUrl) {
-        return "AuthorityUrl is empty. Please fill valid AuthorityUrl in config.json.";
+    if (!config.msal.authorityUrl) {
+        return "AuthorityUrl is empty. Please fill valid AuthorityUrl in keys.js.";
     }
 
-    if (config.authenticationMode.toLowerCase() === "masteruser") {
-        if (!config.pbiUsername || !config.pbiUsername.trim()) {
-            return "PbiUsername is empty. Please fill Power BI username in config.json.";
+    if (config.msal.authenticationMode.toLowerCase() === "masteruser") {
+        if (!config.powerbi.pbiUsername || !config.powerbi.pbiUsername.trim()) {
+            return "PbiUsername is empty. Please fill Power BI username in keys.js.";
         }
 
-        if (!config.pbiPassword || !config.pbiPassword.trim()) {
-            return "PbiPassword is empty. Please fill password of Power BI username in config.json.";
+        if (!config.powerbi.pbiPassword || !config.powerbi.pbiPassword.trim()) {
+            return "PbiPassword is empty. Please fill password of Power BI username in keys.js.";
         }
-    } else if (config.authenticationMode.toLowerCase() === "serviceprincipal") {
-        if (!config.clientSecret || !config.clientSecret.trim()) {
-            return "ClientSecret is empty. Please fill Power BI ServicePrincipal ClientSecret in config.json.";
-        }
-
-        if (!config.tenantId) {
-            return "TenantId is empty. Please fill the TenantId in config.json.";
+    } else if (config.msal.authenticationMode.toLowerCase() === "serviceprincipal") {
+        if (!config.msal.clientSecret || !config.msal.clientSecret.trim()) {
+            return "ClientSecret is empty. Please fill Power BI ServicePrincipal ClientSecret in keys.js.";
         }
 
-        if (!guid.isGuid(config.tenantId)) {
-            return "TenantId must be a Guid object. Please select a workspace you own and fill its Id in config.json.";
+        if (!config.msal.tenantId) {
+            return "TenantId is empty. Please fill the TenantId in keys.js.";
+        }
+
+        if (!guid.isGuid(config.msal.tenantId)) {
+            return "TenantId must be a Guid object. Please select a workspace you own and fill its Id in keys.js.";
         }
     }
 }

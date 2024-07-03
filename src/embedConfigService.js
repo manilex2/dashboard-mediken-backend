@@ -4,12 +4,11 @@
 // ----------------------------------------------------------------------------
 
 const auth = require(__dirname + "/authentication.js");
-const config = require(__dirname + "/../config/config.json");
+const config = require("../helpers/keys.js");
 const utils = require(__dirname + "/utils.js");
 const PowerBiReportDetails = require(__dirname + "/../models/embedReportConfig.js");
 const EmbedConfig = require(__dirname + "/../models/embedConfig.js");
 const fetch = require('node-fetch');
-const { powerbi } = require("../helpers/keys")
 
 /**
  * Generate embed token and embed urls for reports
@@ -21,9 +20,9 @@ async function getEmbedInfo(tipoUsuario) {
     try {
 
         // Get report details and embed token
-        const embedParams = await getEmbedParamsForSingleReport(config.workspaceId, tipoUsuario == 'AfiliadoTitular' || tipoUsuario == 'Beneficiario'
-        ? powerbi.reportIdAfiLTit
-        : powerbi.reportId);
+        const embedParams = await getEmbedParamsForSingleReport(config.powerbi.workspaceId, tipoUsuario == 'AfiliadoTitular' || tipoUsuario == 'Beneficiario'
+        ? config.powerbi.reportIdAfiLTit
+        : config.powerbi.reportId);
 
         return {
             'accessToken': embedParams.embedToken.token,

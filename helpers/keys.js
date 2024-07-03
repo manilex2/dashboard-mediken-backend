@@ -26,7 +26,6 @@ module.exports.msal = {
     authorityUrl: process.env.MSAL_AUTHORITY_URL,
     tenantId: process.env.MSAL_TENANT_ID,
     authenticationMode: process.env.MSAL_AUTHENTICATION_MODE,
-    scopeBase: process.env.MSAL_SCOPE_BASE,
     clientSecret: process.env.MSAL_CLIENT_SECRET
 }
 
@@ -36,7 +35,8 @@ module.exports.powerbi = {
     workspaceId: process.env.PBI_WORKSPACE_ID,
     reportId: process.env.PBI_REPORT_ID,
     reportIdAfiLTit: process.env.PBI_REPORT_ID_AFIL_TIT,
-    apiURL: process.env.PBI_API_URL
+    apiURL: process.env.PBI_API_URL,
+    scopeBase: process.env.PBI_SCOPE_BASE,
 }
 
 module.exports.smtp2go = {
