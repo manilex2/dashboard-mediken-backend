@@ -18,7 +18,7 @@ const getAccessToken = async function () {
     };
 
     // Check for the MasterUser Authentication
-    if (authenticationMode.toLowerCase() === "masteruser") {
+    if (msal.authenticationMode.toLowerCase() === "masteruser") {
         const clientApplication = new msalAzure.PublicClientApplication(msalConfig);
 
         const usernamePasswordRequest = {
@@ -32,8 +32,8 @@ const getAccessToken = async function () {
     };
 
     // Service Principal auth is the recommended by Microsoft to achieve App Owns Data Power BI embedding
-    if (authenticationMode.toLowerCase() === "serviceprincipal") {
-        msalauth.clientSecret =  msal.clientSecret
+    if (msal.authenticationMode.toLowerCase() === "serviceprincipal") {
+        msalConfig.auth.clientSecret =  msal.clientSecret
         const clientApplication = new msalAzure.ConfidentialClientApplication(msalConfig);
 
         const clientCredentialRequest = {

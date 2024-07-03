@@ -4,10 +4,10 @@
 // ----------------------------------------------------------------------------
 
 const auth = require(__dirname + "/authentication.js");
-const { msal, powerbi } = require("../helpers/keys.js");
+const { powerbi } = require("../helpers/keys.js");
 const utils = require(__dirname + "/utils.js");
-const PowerBiReportDetails = require(__dirname + "/../models/embedReportjs");
-const EmbedConfig = require(__dirname + "/../models/embedjs");
+const PowerBiReportDetails = require(__dirname + "/../models/embedReportConfig.js");
+const EmbedConfig = require(__dirname + "/../models/embedConfig.js");
 const fetch = require('node-fetch');
 
 /**
@@ -69,7 +69,7 @@ async function getEmbedParamsForSingleReport(workspaceId, reportId, additionalDa
     const reportEmbedConfig = new EmbedConfig();
 
     // Create mapping for report and Embed URL
-    reportEmbedreportsDetail = [reportDetails];
+    reportEmbedConfig.reportsDetail = [reportDetails];
 
     // Create list of datasets
     let datasetIds = [resultJson.datasetId];
@@ -80,7 +80,7 @@ async function getEmbedParamsForSingleReport(workspaceId, reportId, additionalDa
     }
 
     // Get Embed token multiple resources
-    reportEmbedembedToken = await getEmbedTokenForSingleReportSingleWorkspace(reportId, datasetIds, workspaceId);
+    reportEmbedConfig.embedToken = await getEmbedTokenForSingleReportSingleWorkspace(reportId, datasetIds, workspaceId);
     return reportEmbedConfig;
 }
 
@@ -97,7 +97,7 @@ async function getEmbedParamsForMultipleReports(workspaceId, reportIds, addition
     const reportEmbedConfig = new EmbedConfig();
 
     // Create array of embedReports for mapping
-    reportEmbedreportsDetail = [];
+    reportEmbedConfig.reportsDetail = [];
 
     // Create Array of datasets
     let datasetIds = [];
@@ -124,7 +124,7 @@ async function getEmbedParamsForMultipleReports(workspaceId, reportIds, addition
         const reportDetails = new PowerBiReportDetails(resultJson.id, resultJson.name, resultJson.embedUrl);
 
         // Create mapping for reports and Embed URLs
-        reportEmbedreportsDetail.push(reportDetails);
+        reportEmbedConfig.reportsDetail.push(reportDetails);
 
         // Push datasetId of the report into datasetIds array
         datasetIds.push(resultJson.datasetId);
@@ -136,7 +136,7 @@ async function getEmbedParamsForMultipleReports(workspaceId, reportIds, addition
     }
 
     // Get Embed token multiple resources
-    reportEmbedembedToken = await getEmbedTokenForMultipleReportsSingleWorkspace(reportIds, datasetIds, workspaceId);
+    reportEmbedConfig.embedToken = await getEmbedTokenForMultipleReportsSingleWorkspace(reportIds, datasetIds, workspaceId);
     return reportEmbedConfig;
 }
 
